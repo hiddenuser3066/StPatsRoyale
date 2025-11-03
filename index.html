@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>St Pats Royale</title>
+<style>
+  :root {
+    --bg:#000;
+    --fg:#eee;
+    --fg2:#aaa;
+    --glass:rgba(255,255,255,.05);
+    --brd:rgba(255,255,255,.1);
+    --radius:16px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,sans-serif;}
+  body{
+    background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.04),transparent 40%),var(--bg);
+    color:var(--fg);
+    min-height:100vh;
+    overflow-x:hidden;
+    transition:background-position .2s ease;
+  }
+
+  /* Top bar */
+  .topbar{
+    position:sticky;top:16px;z-index:10;
+    max-width:1000px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+    padding:12px 20px;
+    background:var(--glass);
+    border:1px solid var(--brd);
+    border-radius:var(--radius);
+    backdrop-filter:blur(20px) saturate(160%);
+    box-shadow:0 4px 20px rgba(0,0,0,.4);
+  }
+  .title{font-weight:600;font-size:1.2rem;}
+  .status{display:flex;align-items:center;gap:8px;color:var(--fg2);}
+  .dot{width:10px;height:10px;border-radius:50%;background:#555;box-shadow:0 0 4px #555;transition:.3s;}
+  .dot.online{background:#f2f2f2;box-shadow:0 0 6px rgba(255,255,255,.5);}
+  .dot.offline{background:#666;box-shadow:0 0 4px rgba(255,255,255,.2);}
+  .btns{display:flex;gap:10px;flex-wrap:wrap;}
+  button{
+    background:rgba(255,255,255,.08);
+    border:1px solid var(--brd);
+    color:var(--fg);
+    padding:10px 18px;border-radius:12px;
+    cursor:pointer;transition:background .3s ease;
+  }
+  button:hover{background:rgba(255,255,255,.15);}
+  main{max-width:900px;margin:80px auto;padding:0 20px;}
+  .panel{
+    background:var(--glass);
+    border:1px solid var(--brd);
+    border-radius:var(--radius);
+    backdrop-filter:blur(16px) saturate(160%);
+    padding:24px;margin-bottom:20px;
+  }
+  .panel h2{margin-bottom:10px;}
+  .panel p{color:var(--fg2);line-height:1.6;}
+  footer{text-align:center;padding:40px 10px 60px;color:#777;font-size:.9rem;border-top:1px solid rgba(255,255,255,.05);}
+
+  /* Passcode modal */
+  .overlay{
+    position:fixed;inset:0;display:none;
+    background:rgba(0,0,0,.6);
+    justify-content:center;align-items:center;
+    backdrop-filter:blur(4px);
+  }
+  .overlay.active{display:flex;animation:fadeIn .3s ease forwards;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .pass-panel{
+    background:var(--glass);
+    border:1px solid var(--brd);
+    border-radius:var(--radius);
+    backdrop-filter:blur(25px) saturate(180%);
+    padding:30px 25px;
+    width:90%;max-width:350px;
+    text-align:center;
+    box-shadow:0 8px 30px rgba(0,0,0,.6);
+    animation:pop .3s ease forwards;
+  }
+  @keyframes pop{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+  .pass-panel h3{margin-bottom:14px;}
+  .pass-panel input{
+    width:100%;padding:10px;
+    border:none;border-radius:8px;
+    background:rgba(255,255,255,.08);
+    color:#fff;text-align:center;
+    font-size:1rem;margin-bottom:16px;
+  }
+  .pass-panel .close{background:none;border:none;color:#aaa;margin-top:6px;cursor:pointer;font-size:.9rem;}
+  @media(max-width:700px){.topbar{flex-direction:column;align-items:flex-start;gap:10px;}}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="title">St Pats Royale</div>
+    <div class="status"><span class="dot" id="statusDot"></span><span id="statusText">Checking...</span></div>
+    <div class="btns">
+      <button id="joinBtn">Join Server</button>
+      <script>
+        document.getElementById("joinBtn").addEventListener("click", () => {
+            window.open("https://discord.gg/aXRbprhBwe", "_blank");
+        });
+      </script>
+
+      <button id="directBtn">Direct Access</button>
+    </div>
+  </div>
+
+  <main>
+    <div class="panel">
+      <h2>About</h2>
+      <p>St. Pats Royale was made because lots of people suggested into making it. Therefore, its been born.  We are not linked in ANY way to supercell nor the servers are also not linked to Supercell.</p>
+    </div>
+    <div class="panel">
+      <h2>Announcements</h2>
+      <p>- Server Starts every Morning, Turns off every 7pm Irish time.<br>
+         - New Logo soon.<br>
+         - New Features coming soon.</p>
+    </div>
+  </main>
+
+  <footer>© 2025 DogWater Softworks<br>Unofficial fan-made project — not affiliated with Supercell.</footer>
+
+  <!-- Passcode overlay -->
+  <div class="overlay" id="overlay">
+    <div class="pass-panel">
+      <h3>Enter Access Passcode</h3>
+      <input type="password" id="passcode" placeholder="Enter code...">
+      <button id="accessBtn">Access</button><br>
+      <button class="close" id="closeOverlay">Cancel</button>
+    </div>
+  </div>
+
+<script>
+  // Mouse light tracking
+  document.addEventListener("mousemove", e=>{
+    document.body.style.setProperty("--x",`${e.clientX}px`);
+    document.body.style.setProperty("--y",`${e.clientY}px`);
+  });
+
+  // Server status check
+  async function checkStatus(){
+    try{
+      const res=await fetch("https://raw.githubusercontent.com/hiddenuser3066/StPatsRoyale/refs/heads/main/status.txt",{cache:"no-store"});
+      const txt=(await res.text()).trim().toLowerCase();
+      const dot=document.getElementById("statusDot");
+      const text=document.getElementById("statusText");
+      if(txt==="online"){dot.className="dot online";text.textContent="Online";}
+      else{dot.className="dot offline";text.textContent="Offline";}
+    }catch{
+      document.getElementById("statusDot").className="dot offline";
+      document.getElementById("statusText").textContent="Unknown";
+    }
+  }
+  checkStatus(); setInterval(checkStatus,30000);
+
+  // Passcode modal
+  const overlay=document.getElementById("overlay");
+  document.getElementById("directBtn").onclick=()=>overlay.classList.add("active");
+  document.getElementById("closeOverlay").onclick=()=>overlay.classList.remove("active");
+  document.getElementById("accessBtn").onclick=()=>{
+    const code=document.getElementById("passcode").value.trim();
+    const correct="beta"; // set your passcode here
+    if(code===correct){
+      overlay.classList.remove("active");
+      window.location.href="https://drive.google.com/file/d/1EddvgdhmuYIC7w5Prk7-62nc_zI6T8N6/view?usp=drive_link"; // replace with your real link
+    }else{
+      alert("Incorrect passcode.");
+    }
+  };
+</script>
+</body>
+</html>
