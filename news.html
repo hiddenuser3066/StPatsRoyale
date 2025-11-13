@@ -2,135 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>St Pats Royale — News</title>
+
+<!-- Supercell Font -->
+<link href="https://fonts.cdnfonts.com/css/supercell-magic" rel="stylesheet">
+
 <style>
   :root {
     --bg:#000;
-    --fg:#eee;
-    --fg2:#aaa;
-    --glass:rgba(255,255,255,.05);
-    --brd:rgba(255,255,255,.1);
-    --radius:16px;
+    --fg:#fff;
+    --fg2:#ccc;
   }
 
-  * { box-sizing:border-box; margin:0; padding:0; font-family:Inter,system-ui,sans-serif; }
+  * {
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Supercell-Magic',sans-serif;
+  }
 
   body {
-    background: radial-gradient(circle at 50% 30%, rgba(255,255,255,.04), transparent 40%), var(--bg);
+    background: linear-gradient(180deg, #02101f 0%, #000 100%);
     color: var(--fg);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    padding: 40px 20px 120px;
   }
 
-  .news-panel {
-    width: 100%;
-    max-width: 420px;
-    background: var(--glass);
-    border: 1px solid var(--brd);
-    border-radius: var(--radius);
-    backdrop-filter: blur(22px) saturate(180%);
-    box-shadow: 0 8px 40px rgba(0,0,0,.5);
-    padding: 30px 24px;
-    text-align: center;
-    animation: fadeIn 0.6s ease both;
+  header {
+    max-width: 900px;
+    margin: 0 auto 45px;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  h1 {
-    font-size: 1.4rem;
-    margin-bottom: 8px;
+  header h1 {
+    font-size: 2.6rem;
+    margin-bottom: 10px;
+    font-weight: 900;
     color: #fff;
-    letter-spacing: 0.5px;
+    text-shadow:0 2px 5px rgba(0,0,0,.6);
   }
 
-  h2 {
-    font-size: 1rem;
+  header h2 {
+    font-size: 1.3rem;
+    color:#4ab8ff;
+    letter-spacing:.4px;
+    margin-top:6px;
+  }
+
+  .section {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    padding-bottom: 35px;
+    border-bottom: 2px solid rgba(255,255,255,0.08);
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+    color:#ffe066;
+    font-weight:900;
+    margin-bottom: 18px;
+    text-shadow:0 0 4px rgba(0,0,0,.4);
+  }
+
+  .section p {
+    font-size: 1.05rem;
     color: var(--fg2);
-    margin-bottom: 16px;
+    line-height: 1.75;
+    margin-bottom: 15px;
   }
 
-  .content {
-    text-align: left;
-    background: rgba(255,255,255,.04);
-    border-radius: 12px;
-    padding: 16px;
-    border: 1px solid var(--brd);
-    line-height: 1.6;
+  ul {
+    padding-left: 28px;
+    margin-top: 12px;
+  }
+
+  ul li {
+    margin-bottom: 10px;
+    font-size: 1.05rem;
     color: var(--fg2);
+    line-height: 1.75;
   }
-
-  .content strong {
-    color: #f5f5f5;
-  }
-
-  .btn {
-    display: block;
-    width: 100%;
-    margin-top: 24px;
-    background: rgba(255,255,255,.08);
-    border: 1px solid var(--brd);
-    color: #fff;
-    padding: 12px 0;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .3s ease;
-  }
-
-  .btn:hover { background: rgba(255,255,255,.15); }
 
   footer {
-    margin-top: 20px;
-    font-size: 0.8rem;
-    color: #777;
+    max-width: 900px;
+    margin: 60px auto 0;
+    font-size: 0.9rem;
+    color:#666;
+    text-align:left;
   }
 </style>
 </head>
+
 <body>
 
-  <div class="news-panel">
-    <h1>Maintenance Ongoing</h1>
-    <h2>St Pats Royale – Update v1.0.3</h2>
-    <div class="content">
-      <p><strong>Server Status:</strong> Under maintenance 🛠️</p>
-      <p>We’re currently updating our server and preparing new features for the next update.</p>
-      <ul style="margin-top:8px; padding-left:20px;">
-          <li>Improved match sync and performance.</li>
-          <li>New deck loadout interface.</li>
-          <li>Bug fixes and balance tweaks.</li>
-          <li>Knight now summons Skeletons periodically.</li>
-          <li>P.E.K.K.A now spawns a weakened Mini P.E.K.K.A on defeat. (hopefully)</li>
-          <li>Archers fire dual arrows per attack.</li>
-          <li>Bomber now explodes on death with enhanced impact.</li>
-          <li>Baby Dragon emits a burning damage aura.</li>
-          <li>Cannon fires a 3-shot burst.</li>
-          <li>Witch summons Bats instead of Skeletons.</li>
-          <li>Giant now creates a damaging blast when defeated.</li>
-          <li>Goblin Hut spawns Goblins more rapidly.</li>
-          <li>Barbarians now have increased speed to 90.0 and damage to 80.0 .</li>
-      </ul>
+<header>
+  <h1>Maintenance Ongoing</h1>
+  <h2>St Pats Royale – Update v1.0.3</h2>
+</header>
 
-      <p style="margin-top:8px;">Expected downtime: <strong>20–30 minutes</strong>.</p>
-    </div>
+<!-- STATUS SECTION -->
+<section class="section">
+  <div class="section-title">Server Status</div>
+  <p><strong style="color:#fff;">Current:</strong> Under maintenance 🛠️</p>
+  <p>We’re rolling out new balance changes and improvements to prepare for upcoming features.</p>
+  <p><strong style="color:#fff;">Expected Downtime:</strong> 20–30 minutes</p>
+</section>
 
-    <button class="btn" onclick="window.close()">Close</button>
+<!-- GAMEPLAY CHANGES -->
+<section class="section">
+  <div class="section-title">Gameplay Changes</div>
 
-    <footer>© 2025 DogWater Softworks — St Patrick’s College, Cavan</footer>
-  </div>
+  <ul>
+    <li>Knight now summons <b>2 Skeletons every 3 seconds</b> while alive.</li>
+    <li>P.E.K.K.A now spawns a weakened Mini P.E.K.K.A on defeat (50% HP, 60% damage).</li>
+    <li>Archers now fire <b>2 arrows per attack</b> with a slight horizontal spread.</li>
+    <li>Bomber now triggers a small explosion on death for added impact.</li>
+    <li>Baby Dragon now emits a <b>2-tile burning aura</b> dealing <b>50 damage every 0.5s</b>.</li>
+    <li>Cannon now fires a <b>3-shot burst</b> instead of a single projectile.</li>
+    <li>Witch now summons <b>Bats</b> instead of Skeletons.</li>
+    <li>Giant now creates a <b>3-tile damaging blast</b> dealing <b>300 damage</b> on defeat.</li>
+    <li>Goblin Hut now spawns <b>3 Goblins every 1.5 seconds</b> and lasts <b>30 seconds</b>.</li>
+    <li>Barbarians buffed: <b>Speed increased to 90.0</b>, <b>Damage increased to 80.0</b>.</li>
+  </ul>
+</section>
 
-<script>
-  // subtle background light effect
-  document.addEventListener("mousemove", e => {
-    document.body.style.background = `radial-gradient(circle at ${e.clientX}px ${e.clientY}px, rgba(255,255,255,.05), transparent 40%), var(--bg)`;
-  });
-</script>
+<!-- PATCH NOTES -->
+<section class="section">
+  <div class="section-title">General Improvements</div>
+
+  <ul>
+    <li>Improved match sync and networking stability.</li>
+    <li>New deck loadout interface for smoother card switching.</li>
+    <li>Minor UI polish and visual refinements.</li>
+    <li>General bug fixes and small balance tweaks.</li>
+  </ul>
+</section>
+
+<footer>
+  © 2025 DogWater Softworks — St Patrick’s College, Cavan
+</footer>
+
 </body>
 </html>
