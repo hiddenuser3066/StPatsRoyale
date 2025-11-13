@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/news.html",
+      "destination": "/news.html"
+    },
+    {
+      "source": "/news.html/(.*)",
+      "destination": "/news.html"
+    },
+    {
+      "source": "/news.html(.*)",
+      "destination": "/news.html"
+    }
+  ]
+}
