@@ -1,255 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>St Pats Royale — Update Notes</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.0.0 Soft-Release</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: radial-gradient(circle at top, #1a1a28, #0f0f14);
+      color: #eaeaf0;
+      line-height: 1.6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
 
-<!-- SUPERCell Font -->
-<link href="https://fonts.cdnfonts.com/css/supercell-magic" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Elms+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(0, 0, 0, 0.35);
+      z-index: 0;
+    }
 
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(180deg, #d8d8d8 0%, #ffffff 100%);
-    color: #222;
-    font-family: 'Elms Sans'; /* Default readable body font */
-    line-height: 1.6;
-  }
+    @media (max-width: 600px) {
+      body::before {
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        background: rgba(0, 0, 0, 0.45);
+      }
+    }
 
-  /* TOP BAR */
-  .topbar {
-    width: 100%;
-    background: #000;
-    padding: 18px 20px;
-    color: #fff;
-    font-size: 1.3rem;
-    font-weight: 900;
-    letter-spacing: 1px;
-    font-family: 'Supercell-Magic', 'Elms Sans';
-  }
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 720px;
+      max-width: 92vw;
+      max-height: 85vh;
+      overflow-y: auto;
+      background: linear-gradient(180deg, #1b1b28, #14141c);
+      border-radius: 18px;
+      padding: 28px 32px;
+      box-shadow:
+        0 0 0 rgba(88, 160, 255, 0.0),
+        0 30px 80px rgba(0, 0, 0, 0.75);
+      transform: scale(0.8) translateY(20px);
+      opacity: 0;
+      animation: modalIn 0.6s ease-out forwards, glowPulse 3s ease-in-out infinite;
+    }
 
-  .wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 20px;
-  }
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 0 rgba(88, 160, 255, 0.0), 0 30px 80px rgba(0, 0, 0, 0.75);
+      }
+      50% {
+        box-shadow: 0 0 28px rgba(88, 160, 255, 0.35), 0 30px 80px rgba(0, 0, 0, 0.75);
+      }
+      100% {
+        box-shadow: 0 0 0 rgba(88, 160, 255, 0.0), 0 30px 80px rgba(0, 0, 0, 0.75);
+      }
+    }
 
-  h1 {
-    font-family: 'Supercell-Magic', 'Elms Sans';
-    font-size: 2.8rem;
-    font-weight: 900;
-    margin-bottom: 10px;
-  }
+    .container::-webkit-scrollbar {
+      width: 8px;
+    }
 
-  h2 {
-    font-family: 'Elms Sans', 'Elms Sans';
-    font-size: 1.3rem;
-    color: #0079d3;
-    margin-bottom: 40px;
-  }
+    .container::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-  .section-title {
-    font-family: 'Supercell-Magic', 'Elms Sans';
-    font-size: 1.8rem;
-    color: #c89600;
-    margin: 50px 0 20px;
-    font-weight: 900;
-  }
+    .container::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #4fa3ff, #2f6fbf);
+      border-radius: 6px;
+    }
 
-  /* CARD CHANGE BLOCK */
-  .card-change {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 45px;
-    padding-bottom: 25px;
-    border-bottom: 2px solid #eee;
-  }
+    .container {
+      scrollbar-width: thin;
+      scrollbar-color: #4fa3ff transparent;
+    }
 
-  .card-text {
-    flex: 1;
-    padding-right: 20px;
-    text-align: left;
-  }
+    @keyframes modalIn {
+      to {
+        transform: scale(0.8) translateY(0);
+        opacity: 1;
+      }
+    }
 
-  /* CHARACTER TITLES */
-  .card-change h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.6rem;
-    font-family: 'Supercell-Magic', 'Elms Sans'; /* TITLE in Supercell font */
-  }
+    @media (max-width: 600px) {
+      .container {
+        width: 92vw;
+        max-height: 80vh;
+        padding: 22px 20px;
+      }
 
-  /* CHARACTER DESCRIPTION TEXT */
-  .card-change p {
-    margin: 0;
-    font-size: 1.1rem;
-    font-family: 'Elms Sans', 'Elms Sans'; /* description in normal font */
-  }
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
 
-  .card-change img {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-    margin-left: 20px;
-  }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+    }
 
-  ul {
-    list-style: none;
-    padding-left: 0;
-  }
+    h2 {
+      margin-top: 2rem;
+      border-bottom: 1px solid #2a2a35;
+      padding-bottom: 0.3rem;
+    }
 
-  ul li {
-    margin-bottom: 12px;
-    padding-left: 20px;
-    position: relative;
-    font-size: 1.1rem;
-    font-family: 'Elms Sans', 'Elms Sans'; /* normal font */
-  }
+    h3 {
+      margin-top: 1.2rem;
+    }
 
-  ul li::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #0079d3;
-    font-size: 1.4rem;
-  }
+    ul {
+      margin-left: 1.2rem;
+    }
 
-  footer {
-    margin: 70px 0 20px;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #777;
-    font-family: 'Elms Sans', 'Elms Sans';
-  }
-</style>
+    .tag {
+      display: inline-block;
+      background: #2a2a35;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      margin-left: 6px;
+    }
+
+    .note {
+      color: #bdbdd6;
+      font-style: italic;
+    }
+  .version-badge {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: linear-gradient(180deg, #4fa3ff, #2f6fbf);
+      color: #ffffff;
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+    }
+
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <div class="version-badge">v2.0.0</div>
+    <h1>2.0.0 Soft-Release</h1>
 
-<div class="topbar">
-  ST.PATS ROYALE — NEWS
-</div>
+    <h2>Card Update</h2>
 
-<div class="wrapper">
+    <h3>Gaster Blaster <span class="tag">New</span></h3>
+    <p class="note">From Deltarune</p>
+    <ul>
+      <li>3 of them get spawned</li>
+      <li>Shoot lasers non-stop</li>
+      <li>Get stronger every 2 seconds (like the Inferno Dragon)</li>
+    </ul>
 
-  <h1>St.Pats Royale Update</h1>
-  <h2>Version 1.0.3 — Balance & Improvements</h2>
+    <h3>Steve <span class="tag">BETA</span></h3>
+    <p class="note">First animated character</p>
+    <ul>
+      <li>Acts like the Knight</li>
+      <li>DPS: 110</li>
+    </ul>
 
-  <div class="section-title">Balance Changes</div>
+    <h2>Tick Update</h2>
+    <ul>
+      <li>Less desyncs</li>
+      <li>Switched to UDP for less lag</li>
+    </ul>
 
-  <!-- KNIGHT -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>Knight</h3>
-      <p>Skeleton Spawns: <b>0 → 2</b> every <b>3 seconds</b>.</p>
-    </div>
-    <img src="https://sproyale.vercel.app/knight.png">
+    <h2>Server Changes</h2>
+    <ul>
+      <li>Trophies added</li>
+      <li>Crowns added</li>
+    </ul>
+
+    <h2>App Changes</h2>
+    <ul>
+      <li>Fixed package conflicts</li>
+    </ul>
+
+    <h2>Buffs and Nerfs</h2>
+
+    <h3>Buffs</h3>
+    <strong>Skeleton Army</strong>
+    <ul>
+      <li>Spawn amount increased from 12 to 20 skeletons</li>
+    </ul>
+
+    <h3>Nerfs</h3>
+    <strong>Porsche</strong>
+    <ul>
+      <li>Attack speed decreased by about 10%</li>
+    </ul>
   </div>
-
-  <!-- PEKKA -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>P.E.K.K.A</h3>
-      <p>Now spawns <b>Mini P.E.K.K.A_Spawned</b> on death.<br>
-      HP: <b>50%</b>, Damage: <b>60%</b>.</p>
-    </div>
-    <img src="https://sproyale.vercel.app/pekka.png">
-  </div>
-
-  <!-- ARCHERS -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>Archers</h3>
-      <p>Arrows per attack: <b>1 → 2</b>.</p>
-    </div>
-    <img src="https://sproyale.vercel.app/archers.png">
-  </div>
-
-  <!-- BABY DRAGON -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>Baby Dragon</h3>
-      <p>Aura Damage: <b>0 → 30</b> every <b>0.5s</b><br>
-      Aura Radius: <b>0 → 1.8</b></p>
-    </div>
-    <img src="https://sproyale.vercel.app/babydragon.png">
-  </div>
-
-  <!-- WITCH -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>Witch</h3>
-      <p>Summons changed: <b>Skeletons → Bats</b>.</p>
-    </div>
-    <img src="https://sproyale.vercel.app/witch.png">
-  </div>
-
-  <!-- GOBLIN HUT -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>Goblin Hut</h3>
-      <p>Goblins per spawn: <b>1 → 3</b><br>
-      Spawn Interval: <b>2s → 1.5s</b></p>
-    </div>
-    <img src="https://sproyale.vercel.app/goblinhut.png">
-  </div>
-
-  <!-- BARBARIANS -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>Barbarians</h3>
-      <p>Speed: <b>60 → 85</b><br>
-      Damage: <b>60 → 80</b></p>
-    </div>
-    <img src="https://sproyale.vercel.app/barbarians.png">
-  </div>
-
-  <!-- GIANT -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>Giant</h3>
-      <p>Death Damage: <b>0 → 180</b><br>
-      Death Radius: <b>0 → 2.5</b></p>
-    </div>
-    <img src="https://sproyale.vercel.app/giant.png">
-  </div>
-
-  <!-- CANNON -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>Cannon</h3>
-      <p>Burst: <b>1 → 3</b><br>
-      Burst Delay: <b>0ms → 150ms</b></p>
-    </div>
-    <img src="https://sproyale.vercel.app/cannon.png">
-  </div>
-
-  <!-- BOMBER -->
-  <div class="card-change">
-    <div class="card-text">
-      <h3>Bomber</h3>
-      <p>Death Damage: <b>0 → 180</b><br>
-      Death Radius: <b>0 → 2.3</b></p>
-    </div>
-    <img src="https://sproyale.vercel.app/bomber.png">
-  </div>
-
-  <div class="section-title">General Improvements</div>
-
-  <ul>
-    <li>Improved match synchronization.</li>
-    <li>New deck loadout interface.</li>
-    <li>Minor UI and performance tweaks.</li>
-    <li>General bug fixes.</li>
-  </ul>
-
-  <footer>© 2025 DogWater Softworks — St Patrick’s College, Cavan</footer>
-</div>
-
 </body>
 </html>
